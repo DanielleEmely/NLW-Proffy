@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="/styles/main.css">
         <link rel="stylesheet" href="/styles/partials/header.css">
         <link rel="stylesheet" href="/styles/partials/forms.css">
-
         <link rel="stylesheet" href="/styles/partials/page-study.css">
 
         <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
@@ -36,7 +35,7 @@
                             <select name="subject" id="subject">
                                 <option value="" disabled="" hidden="">Selecione uma opção</option>
 
-                                {%for subject in subjects%}}
+                                {%for subject in subjects%}
                                       <option value="{{loop.index}}" {{ "selected" if filters.subject == loop.index }} > {{subject}}</option>
                                 {%endfor %}
 
@@ -46,7 +45,7 @@
                             <label for="weekday">Dia da semana</label>
                             <select name="weekday" id="weekdays">
                                 <option value="" disabled="" hidden="">Selecione uma opção</option>
-                                  {%for weekday in weekdays%}}
+                                  {%for weekday in weekdays%}
                                       <option value="{{loop.index0}}" {{ "selected" if filters.weekday == loop.index0 }} > {{weekday}}</option>
                                 {%endfor %}
                             </select>
@@ -61,32 +60,38 @@
             </header>
 
             <main>
-                {% for proffy in proffys %}
-                        <article class="teacher-item">
-                            <header>
-                                <img src={{proffy.avatar}} alt="{{proffy.name}}">
-                                <div>
-                                    <strong>{{proffy.name}}</strong>
-                                    <span>{{proffy.subject}}</span>
-                                </div>
-                            </header>
+                {% if proffys == "" %}
+                    <p class="no-results">Nenhum professor encontrado com a sua pesquisa</p>
 
-                            <p>{{proffy.bio}}</p>
+                {% else %}
 
-                            <footer>
-                                <p>Preço/hora<strong>R$ {{proffy.cost}}</strong>
-                                </p>
-                                <a href="https://api.whatsapp.com/send?1=pt_BR&phone=55{{proffy.whatsapp}}&text=Tenho interesse na sua aula de {{proffy.subject}} {{proffy.name}}"
-                                class="button" target="blank">
-                                        <img src="/images/icons/whatsapp.svg" alt="whatsapp"> Entrar em contato
-                                </a>
-                            </footer>
-                        </article>
-                {%endfor%}
+                    {% for proffy in proffys %}
+                            <article class="teacher-item">
+                                <header>
+                                    <img src={{proffy.avatar}} alt="{{proffy.name}}">
+                                    <div>
+                                        <strong>{{proffy.name}}</strong>
+                                        <span>{{proffy.subject}}</span>
+                                    </div>
+                                </header>
 
-                </main>
+                                <p>{{proffy.bio}}</p>
 
-            </div>
+                                <footer>
+                                    <p>Preço/hora<strong>R$ {{proffy.cost}}</strong>
+                                    </p>
+                                    <a href="https://api.whatsapp.com/send?1=pt_BR&phone=55{{proffy.whatsapp}}&text=Tenho interesse na sua aula de {{proffy.subject}} {{proffy.name}}"
+                                    class="button" target="blank">
+                                            <img src="/images/icons/whatsapp.svg" alt="whatsapp"> Entrar em contato
+                                    </a>
+                                </footer>
+                            </article>
+                    {%endfor%}
+
+                {% endif %}
+            </main>
+
+        </div>
 
         </body>
 
